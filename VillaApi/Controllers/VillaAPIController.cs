@@ -27,6 +27,7 @@ namespace VillaApi.Controllers
             this._response = new();
         }
 
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<APIResponse>> GetAll()

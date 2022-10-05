@@ -21,13 +21,13 @@ namespace VillaApi.Controllers
             villaNumRepository = _villaNumRepository;
            this._response = new APIResponse();
         }
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async ActionResult<APIResponse> GetAllAsync()
-        {
-            IEnumerable<VillaNumber> villaNumbers = await villaNumRepository.GetAllAsync();
-            _response.Result= mapper.Map<List<VillaNumber>>(List<VillaNumberDto>())
-        }
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public async ActionResult<APIResponse> GetAllAsync()
+        //{
+        //    IEnumerable<VillaNumber> villaNumbers = await villaNumRepository.GetAllAsync();
+        //    _response.Result= mapper.Map<List<VillaNumber>>(List<VillaNumberDto>())
+        //}
 
 
         //public async ActionResult<APIResponse> CreateVillaNum(VillaNumberCreatedDTO createdDTO)
