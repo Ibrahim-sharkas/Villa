@@ -12,6 +12,7 @@ namespace VillaApi.Core.Repository
         public Repository(ApplicationContext context)
         {
             _context = context;
+            //_context.VillaNumbers.Include(i => i.Villa).ToList(); this code to see how to get  prop in table that match prop sepcified
             dbset = _context.Set<T>();  
         }
 
@@ -22,7 +23,7 @@ namespace VillaApi.Core.Repository
 
         }
 
-        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? expression= null)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? expression= null, string? includePropeties = null)
         {
 
             IQueryable<T> query = dbset;
@@ -30,15 +31,29 @@ namespace VillaApi.Core.Repository
             {
                 query = query.Where(expression);    
             }
+            if (includePropeties != null)
+            {
+                foreach (var item in includePropeties.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(item);
+                }
+            }
             return await query.ToListAsync();
         }
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> expression, bool tracked = true)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> expression, bool tracked = true, string? includePropeties = null)
         {
             IQueryable<T> query = dbset;
             if (!tracked)
             {
                 query = query.AsNoTracking(); 
+            }
+            if (includePropeties != null)
+            {
+                foreach (var item in includePropeties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(item);
+                }
             }
             query = query.Where(expression);    
             return await query.FirstOrDefaultAsync();

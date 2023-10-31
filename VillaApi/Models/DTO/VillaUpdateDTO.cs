@@ -23,7 +23,7 @@ namespace VillaApi.Models.DTO
         public string Amenity { get; set; }
         [Required]
 
-        public int Occupency { get; set; }
+        public int Occupancy { get; set; }
         public int Sqft { get; set; }
     }
 }
